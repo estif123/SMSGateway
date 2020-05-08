@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">SMSGateway</string>
+    <string name="message">You can now access the Android Web Server from a browser connected to the same wifi network.</string>
+    <string name="dialog_exit_message">Android Web Server is currently running. If you exit the application we will stop it. Are sure you want to exit the application?</string>
+    <string name="warning">Warning</string>
+    <string name="wifi_message">You must connect to a WiFi network to use this service.</string>
+    <string name="image">this is image</string>
+    <string name="ip">http://000.000.000.000:</string>
+    <string name="port">8080</string>
+    <string name="this_may_be_an_image">this may be an image</string>
+    <string name="enter_pone_number">Enter Pone number</string>
+    <string name="deleteMessage">Are you sure, you want to delete it.</string>
+    <string name="label_message_title">Title</string>
+    <string name="label_message_content">Content</string>
+    <string name="label_first_name">First Name</string>
+    <string name="label_last_name">Last Name</string>
+    <string name="label_phone_number">Phone Number</string>
+    <string name="hint_enter_note">please enter phone nuber</string>
+    <string name="hint_enter_first_name">please enter first name</string>
+    <string name="hint_enter_message_title">please enter message title</string>
+    <string name="hint_enter_message_content">please enter the message </string>
+    <string name="hint_enter_last_name">please enter last name</string>
+    <string name="lbl_new_user_title">Enter new User</string>
+    <string name="lbl_new_msg_title">Enter new Message</string>
+    <string name="lbl_edit_user_title">Edit User</string>
+    <string name="lbl_show_message">Edit message</string>
+    <string name="hint_enter_phone_number">please enter phone number</string>
+    <string name="no_messages_found">no message found</string>
+</resources>
