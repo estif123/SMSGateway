@@ -2,18 +2,19 @@ package com.example.smsgateway;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
-import android.os.Build;
 import android.os.Bundle;
 
-import com.example.smsgateway.Adapters.PagerAdapter;
+import com.example.smsgateway.Fragments.MessageFragment;
+import com.example.smsgateway.Fragments.ServerFragment;
+import com.example.smsgateway.Model.Message;
+import com.example.smsgateway.utils.PagerAdapter;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ServerFragment.FragmentServerListener, MessageFragment.FragmentMessageListener {
     TabLayout tabLayout;
     ViewPager viewPager;
     PagerAdapter pageAdapter;
@@ -58,5 +59,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+    MessageFragment msg = new MessageFragment();
+    ServerFragment serverFragment=new ServerFragment();
+
+    @Override
+    public void onMessageRecieved(String title, String content) {
+        // serverFragment.setListener(this);
+        msg.createMessage(title,content);
+    }
+
+
+    @Override
+    public void onMessageSent(Message msg_model) {
+
     }
 }
