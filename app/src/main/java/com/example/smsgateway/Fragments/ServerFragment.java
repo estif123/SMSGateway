@@ -73,7 +73,7 @@ public class ServerFragment extends Fragment implements  View.OnClickListener {
         return inflater.inflate(R.layout.fragment_server, container, false);
     }
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view,  Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
         textViewMessage = view.findViewById(R.id.tabmessages);
@@ -81,18 +81,18 @@ public class ServerFragment extends Fragment implements  View.OnClickListener {
         textViewMessage = view.findViewById(R.id.textViewMessage);
         textViewIpAccess = view.findViewById(R.id.textViewIpAccess);
         floatingActionButtonOnOff = view.findViewById(R.id.floatingActionButtonOnOff);
-        //floatingActionButtonOnOff.setOnClickListener( this);
+        floatingActionButtonOnOff.setOnClickListener( this);
     }
 
     @Override
     public void onClick(View view) {
-        //System.out.println(getPhoneNumber());
+
         // getContext().startService(new Intent(getContext(),MessageService.class));
         Intent intent = new Intent(getActivity(), MessageService.class);
         Bundle bundle = new Bundle();
         bundle.putInt("port", Integer.parseInt(editTextPort.getText().toString()));
         intent.putExtras(bundle);
-        //getActivity().startService(intent);
+        getActivity().startService(intent);
 
 
         switch (view.getId()){
@@ -100,9 +100,11 @@ public class ServerFragment extends Fragment implements  View.OnClickListener {
                 if (isConnectedInWifi()) {
                     if (!isStarted && startAndroidWebServer()) {
                         isStarted = true;
+
                         textViewMessage.setVisibility(View.VISIBLE);
                         floatingActionButtonOnOff.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.colorGreen));
                         editTextPort.setEnabled(false);
+
                     } else if (stopAndroidWebServer()) {
                         isStarted = false;
                         textViewMessage.setVisibility(View.INVISIBLE);
@@ -138,23 +140,20 @@ public class ServerFragment extends Fragment implements  View.OnClickListener {
     //region Start And Stop AndroidWebServer
     private boolean startAndroidWebServer() {
         // Log.i(TAG,"isstarted:\t"+isStarted);
-        if (!isStarted) {
-
-
-            //       int port = getPortFromEditText();
-            //Toast.makeText(getContext(),"the port is "+port, Toast.LENGTH_SHORT).show();
+//        if (!isStarted) {
+//
+//
+//                   int port = getPortFromEditText();
+//            Toast.makeText(getContext(),"the port is "+port, Toast.LENGTH_SHORT).show();
 //            try {
-//                if (p getContext().startService(new Intent(getContext(),MessageService.class));ort == 0) {
-//                    throw new Exception();
-//                }
-////                messageServer = new MessageServer(port,context);
-////                messageServer.start();
-            return true;
+//                messageServer = new MessageServer(port,context);
+//                messageServer.start();
+//            return true;
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //                Toast.makeText(getContext(), "The PORT " + port + " doesn't work, please change it between 1000 and 9999.", Toast.LENGTH_LONG).show();
 //            }
-        }
+//        }
         return false;
     }
     private boolean stopAndroidWebServer() {
@@ -297,14 +296,19 @@ public class ServerFragment extends Fragment implements  View.OnClickListener {
         }, new IntentFilter(SENT));
 
         ArrayList<String> phone_numbers = getAllUserPhones(context);
-        for (int i=0;i<=phone_numbers.size();i++){
-            try {
-                SmsManager smsgr = SmsManager.getDefault();
-                smsgr.sendTextMessage(phone_numbers.get(i), null,  msg_content, SENTPI, DELIVEREDPI);
+        if(phone_numbers==null){
+            Toast.makeText(getContext(), "No users found to send the message P;ease enter One", Toast.LENGTH_LONG).show();
+        }else{
 
-            } catch (Exception e) {
-                Toast.makeText(context, "" + e.getMessage().toString(), Toast.LENGTH_LONG).show();
-            }
+            for (int i=0;i<=phone_numbers.size();i++){
+                try {
+                    SmsManager smsgr = SmsManager.getDefault();
+                    smsgr.sendTextMessage(phone_numbers.get(i), null,  msg_content, SENTPI, DELIVEREDPI);
+
+                } catch (Exception e) {
+                    Toast.makeText(context, "" + e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                }
+        }
         }
 
     }
